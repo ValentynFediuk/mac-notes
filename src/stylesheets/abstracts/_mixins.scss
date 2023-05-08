@@ -1,0 +1,39 @@
+@mixin overlay {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  @content;
+}
+
+@mixin media-xxl {
+  @media (max-width: map-get($breakpoints, 'xxl')) {
+    @content;
+  }
+}
+
+@mixin media-xl {
+  @media (max-width: map-get($breakpoints, 'xl')) {
+    @content;
+  }
+}
+
+@mixin media-lg {
+  @media (max-width: map-get($breakpoints, 'lg')) {
+    @content;
+  }
+}
+
+@mixin media-md {
+  @media (max-width: map-get($breakpoints, 'md')) {
+    @content;
+  }
+}
+
+@mixin media-sm {
+  @media (max-width: map-get($breakpoints, 'sm')) {
+    @content;
+  }
+}

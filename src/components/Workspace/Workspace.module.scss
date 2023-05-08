@@ -1,0 +1,12 @@
+.wrapper {
+    grid-area: content;
+    padding: 1rem;
+    position: relative;
+    & .textarea {
+        @include overlay {
+            background-color: $primary;
+            color: $secondary;
+            padding: 1rem;
+        }
+    }
+}

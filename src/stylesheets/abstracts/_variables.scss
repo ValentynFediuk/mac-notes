@@ -1,0 +1,19 @@
+$body-font: 'arial', 'sans-serif';
+$body-font-size: 1.6rem;
+
+$primary: #000000;
+$secondary: #ffffff;
+$gray: #292929;
+
+$border-radious: 1rem;
+$button-transition: 0.5s ease-in-out;
+
+$breakpoints: (
+  'xxl': 87.5rem,
+  'xl': 75rem,
+  'lg': 62rem,
+  'md': 48rem,
+  'sm': 36rem,
+) !default;
+
+$base-url: '/' !default;

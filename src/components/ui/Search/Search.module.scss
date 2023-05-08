@@ -1,0 +1,26 @@
+.search {
+    background-color: $primary;
+    border-radius: $border-radious;
+    color: $secondary;
+    position: relative;
+    background-image: url('assets/icons/search.svg');
+    background-position: 7rem 0.8rem;
+    background-repeat: no-repeat;
+    background-size: 1.5rem;
+    font-size: 1.5rem;
+    padding-inline: 1rem;
+    position: relative;
+    &::placeholder {
+        position: absolute;
+        left: calc(50% + 3rem);
+        top: 50%;
+        transform: translate(-100%, -50%);
+        color: $secondary;
+    }
+    &:focus {
+        background-image: none;
+        &::placeholder {
+            opacity: 0;
+        }
+    }
+}
