@@ -1,13 +1,7 @@
-import { Workspace, TopBar, Sidebar } from 'components';
+import { MainPage } from 'features';
 
 function App() {
-  return (
-    <div className="wrapper">
-      <TopBar />
-      <Sidebar />
-      <Workspace />
-    </div>
-  );
+  return <MainPage />;
 }
 
 export default App;

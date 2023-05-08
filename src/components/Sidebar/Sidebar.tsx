@@ -1,7 +1,8 @@
+import { SidebarProps } from './Sidebar.props';
 import styles from './Sidebar.module.scss';
 
-function Sidebar() {
-  return <div className={styles.wrapper}>Sidebar</div>;
+function Sidebar({ children }: SidebarProps) {
+  return <aside className={styles.wrapper}>{children}</aside>;
 }
 
 export default Sidebar;

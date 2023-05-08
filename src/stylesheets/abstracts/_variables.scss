@@ -1,8 +1,11 @@
+$body-font: 'arial', 'sans-serif';
 $body-font-size: 1.6rem;
 
-$text-color: #ffffff !default;
-$dark: #000000;
+$primary: #000000;
+$secondary: #ffffff;
+$gray: #292929;
 
+$border-radious: 1rem;
 $button-transition: 0.5s ease-in-out;
 
 $breakpoints: (

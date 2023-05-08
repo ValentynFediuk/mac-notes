@@ -9,14 +9,15 @@
 }
 
 html {
-  background: $dark;
+  background: $primary;
   box-sizing: border-box;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
 }
 
 body {
-  color: $text-color;
+  color: $secondary;
+  font-family: $body-font;
   font-weight: 400;
   font-size: 1.6rem;
   line-height: 3.2rem;
@@ -72,6 +73,8 @@ input,
 optgroup,
 select,
 textarea {
+  outline: none;
+  border: none;
   font-family: inherit;
   font-size: 100%;
   line-height: 1.15;
@@ -81,6 +84,8 @@ textarea {
 button,
 input {
   overflow: visible;
+  outline: none;
+  border: none;
 }
 
 button,

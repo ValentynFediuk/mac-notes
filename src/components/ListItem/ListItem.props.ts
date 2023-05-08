@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-
 export interface ListItemProps {
-  children: ReactNode;
+  title: string;
+  date: string;
+  description: string;
 }

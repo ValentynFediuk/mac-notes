@@ -23,6 +23,7 @@ export default defineConfig({
       assets: path.resolve(__dirname, './src/assets'),
       components: path.resolve(__dirname, './src/components/index'),
       hooks: path.resolve(__dirname, './src/hooks/index'),
+      features: path.resolve(__dirname, './src/features/index'),
     },
   },
 });

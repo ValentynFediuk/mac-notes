@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 export interface ButtonProps {
   children: ReactNode;
-  typeBtn: string;
+  typeBtn: 'button' | 'submit';
   appearance: 'primary';
-  handleClick?: () => void;
+  handleClick: () => void;
 }
