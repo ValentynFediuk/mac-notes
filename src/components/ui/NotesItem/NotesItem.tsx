@@ -1,8 +1,8 @@
-import { Title } from '../ui';
-import { ListItemProps } from './ListItem.props';
-import styles from './ListItem.module.scss';
+import { Title } from '../index';
+import { NotesItemProps } from './NotesItem.props';
+import styles from './NotesItem.module.scss';
 
-function ListItem({ title, date, description }: ListItemProps) {
+function NotesItem({ title, date, description }: NotesItemProps) {
   return (
     <div className={styles.wrapper}>
       <Title className={styles.title} typeTitle="h3" size="s">
@@ -16,4 +16,4 @@ function ListItem({ title, date, description }: ListItemProps) {
   );
 }
 
-export default ListItem;
+export default NotesItem;

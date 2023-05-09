@@ -24,6 +24,8 @@ export default defineConfig({
       components: path.resolve(__dirname, './src/components/index'),
       hooks: path.resolve(__dirname, './src/hooks/index'),
       features: path.resolve(__dirname, './src/features/index'),
+      store: path.resolve(__dirname, './src/store/index'),
+      database: path.resolve(__dirname, './src/database/index'),
     },
   },
 });

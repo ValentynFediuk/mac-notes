@@ -1,6 +1,6 @@
 import { MainPage } from 'features';
 
-function App() {
+function App(): JSX.Element {
   return <MainPage />;
 }
 
