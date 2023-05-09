@@ -12,6 +12,7 @@ function Sidebar() {
       {notesState?.map((note: INote) => (
         <NotesItem
           key={note.id}
+          id={note.id}
           title={note.text}
           description={note.text}
           date={note.date}

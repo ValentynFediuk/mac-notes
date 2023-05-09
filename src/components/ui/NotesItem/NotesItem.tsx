@@ -1,18 +1,41 @@
 import { useFormatDate } from 'hooks';
 import clsx from 'clsx';
+import { useContext } from 'react';
+import { NotesDispatchContext } from 'store';
+import { INotesActions } from 'types';
 import { NotesItemProps } from './NotesItem.props';
 import styles from './NotesItem.module.scss';
 import Title from '../Title/Title';
 
-function NotesItem({ title, date, description, selected }: NotesItemProps) {
+function NotesItem({ id, title, date, description, selected }: NotesItemProps) {
+  const dispatch = useContext(NotesDispatchContext);
+  function handleClick() {
+    const selectNoteAction: INotesActions = {
+      type: 'SELECT_NOTE',
+      payload: { id },
+    };
+
+    dispatch(selectNoteAction);
+  }
+
   return (
-    <div className={clsx(styles.wrapper, selected && styles.selected)}>
+    <div
+      role="button"
+      onClick={handleClick}
+      tabIndex={0}
+      className={clsx(styles.wrapper, selected && styles.selected)}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          handleClick();
+        }
+      }}
+    >
       <Title className={styles.title} typeTitle="h3" size="s">
         {title || 'Emty note'}
       </Title>
       <div className={styles.info}>
-        <p className={styles.date}>{date &&useFormatDate(date)}</p>
-        <p className={styles.description}>{description && description}</p>
+        <p className={styles.date}>{useFormatDate(date)}</p>
+        <p className={styles.description}>{description}</p>
       </div>
     </div>
   );

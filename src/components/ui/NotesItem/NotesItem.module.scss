@@ -12,6 +12,9 @@
             white-space: nowrap;
         }
     }
+    &:not(.selected) {
+        cursor: pointer;
+    }
     &.selected {
         background-color: $gray;
         border-color: $primary;

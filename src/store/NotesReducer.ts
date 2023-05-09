@@ -1,4 +1,4 @@
-import { INote, INotesActions, INotesState } from 'types';
+import { INotesActions, INotesState } from 'types';
 
 const NotesReducer = (
   state: INotesState,
@@ -10,12 +10,15 @@ const NotesReducer = (
     case 'DELETE_NOTE':
       return state.filter((note) => note.id !== action.payload.id);
     case 'SELECT_NOTE':
-      return [...state, action.payload.selected] as INote[];
-    case 'SET_SELECTED_FALSE':
-      return state.map((note) => ({
-        ...note,
-        selected: note.id === action.payload.id ? false : note.selected,
-      })) as INote[];
+      return state.map((note) =>
+        note.id === action.payload.id
+          ? { ...note, selected: true }
+          : { ...note, selected: false }
+      );
+    case 'SET_PREVIOUS_SELECTED_NOTE_FALSE':
+      return state.map((note) => ({ ...note, selected: false }));
+    case 'LOAD_NOTES_FROM_DB':
+      return [...action.payload.notes];
     default:
       return state;
   }

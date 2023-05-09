@@ -1,0 +1,3 @@
+type ITopBar = {
+  handleAddNote: () => void;
+};
