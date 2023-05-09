@@ -1,5 +1,7 @@
 .wrapper {
-    border-bottom: 0.1rem solid $gray;
+    border-bottom: 0.1rem solid;
+    border-color: $gray;
+    padding: 0.5rem 1rem;
     & .info {
         display: flex;
         justify-content: space-between;
@@ -9,5 +11,9 @@
             overflow: hidden;
             white-space: nowrap;
         }
+    }
+    &.selected {
+        background-color: $gray;
+        border-color: $primary;
     }
 }

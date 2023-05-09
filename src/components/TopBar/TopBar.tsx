@@ -1,20 +1,34 @@
 import sprite from 'assets/icons/sprite.svg';
-import { useReducer } from 'react';
-import { NotesReducer } from 'store';
+import { useContext } from 'react';
+import { NotesDispatchContext } from 'store';
 import { INotesActions } from 'types';
+import { useUniqueId } from 'hooks';
 import { Button, Search } from '../ui';
 import styles from './TopBar.module.scss';
 
 function TopBar() {
-  const [notes, dispatch] = useReducer(NotesReducer, []);
+  const dispatch = useContext(NotesDispatchContext);
+  const newNoteId = useUniqueId();
 
   function handleAddNote() {
-    const newNote = { id: 1, text: 'New note', date: new Date() };
+    const newNote = {
+      id: newNoteId,
+      text: '',
+      date: new Date(),
+      selected: true,
+    };
     const action: INotesActions = {
       type: 'ADD_NOTE',
       payload: { note: newNote },
     };
     dispatch(action);
+
+    const setSelectedFalse: INotesActions = {
+      type: 'SET_SELECTED_FALSE',
+      payload: { id: newNoteId },
+    };
+
+    dispatch(setSelectedFalse);
   }
   return (
     <header className={styles.wrapper}>

@@ -1,5 +1,6 @@
 export interface NotesItemProps {
-  title: string;
-  date: string;
   description: string;
+  title: string;
+  date: Date;
+  selected: boolean;
 }

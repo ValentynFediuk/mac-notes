@@ -7,15 +7,15 @@ import { NotesItem } from '../ui';
 function Sidebar() {
   const notesState = useContext(NotesContext);
 
-  const { notes } = notesState;
   return (
     <aside className={styles.wrapper}>
-      {notes?.map((note: INote) => (
+      {notesState?.map((note: INote) => (
         <NotesItem
           key={note.id}
           title={note.text}
           description={note.text}
           date={note.date}
+          selected={note.selected}
         />
       ))}
     </aside>
