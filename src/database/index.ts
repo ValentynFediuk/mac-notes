@@ -1,2 +1,1 @@
-// eslint-disable-next-line import/prefer-default-export
-export { default as indexedDBConfig } from './indexedDBConfig';
+export { DATABESE_NAME, indexedDBConfig } from './indexedDBConfig';

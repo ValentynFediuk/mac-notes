@@ -7,26 +7,24 @@ import { NotesItemProps } from './NotesItem.props';
 import styles from './NotesItem.module.scss';
 import Title from '../Title/Title';
 
-function NotesItem({ id, title, date, description, selected }: NotesItemProps) {
+function NotesItem({ id, title, date, description, selected, handleSelectNote }: NotesItemProps) {
   const dispatch = useContext(NotesDispatchContext);
-  function handleClick() {
-    const selectNoteAction: INotesActions = {
-      type: 'SELECT_NOTE',
-      payload: { id },
-    };
 
-    dispatch(selectNoteAction);
-  }
+  const noteCache = {
+    id,
+    description,
+    date,
+  };
 
   return (
     <div
       role="button"
-      onClick={handleClick}
+      onClick={(noteCache)}
       tabIndex={0}
       className={clsx(styles.wrapper, selected && styles.selected)}
       onKeyDown={(event) => {
         if (event.key === 'Enter' || event.key === ' ') {
-          handleClick();
+          handleSelectNote(noteCache);
         }
       }}
     >
@@ -34,7 +32,7 @@ function NotesItem({ id, title, date, description, selected }: NotesItemProps) {
         {title || 'Emty note'}
       </Title>
       <div className={styles.info}>
-        <p className={styles.date}>{useFormatDate(date)}</p>
+        <p className={styles.date}>{date && useFormatDate(date)}</p>
         <p className={styles.description}>{description}</p>
       </div>
     </div>
