@@ -4,13 +4,7 @@
     padding: 0.5rem 1rem;
     & .info {
         display: flex;
-        justify-content: space-between;
-        gap: 1rem;
-        & .description, .title {
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-        }
+        gap: 2rem;
     }
     &:not(.selected) {
         cursor: pointer;
@@ -18,5 +12,11 @@
     &.selected {
         background-color: $gray;
         border-color: $primary;
+    }
+
+    & .description, .title {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
     }
 }

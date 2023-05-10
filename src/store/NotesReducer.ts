@@ -7,10 +7,14 @@ const NotesReducer = (
   switch (action.type) {
     case 'ADD_NOTE':
       return [...state, action.payload.note];
-    case 'DELETE_NOTE':
-      return state.filter((note) => note.id !== action.payload.id);
+    case 'DELETE_SELECTED_NOTE':
+      return state.filter((note) => note.selected === false);
     case 'TYPE_NOTE':
-      return [...state, action.payload.note];
+      return state.map((note) =>
+        note.id === action.payload.id
+          ? { ...note, text: action.payload.text }
+          : { ...note }
+      );
     case 'SELECT_NOTE':
       return state.map((note) =>
         note.id === action.payload.id

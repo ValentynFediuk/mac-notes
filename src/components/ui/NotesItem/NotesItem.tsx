@@ -1,30 +1,30 @@
 import { useFormatDate } from 'hooks';
 import clsx from 'clsx';
-import { useContext } from 'react';
-import { NotesDispatchContext } from 'store';
-import { INotesActions } from 'types';
 import { NotesItemProps } from './NotesItem.props';
 import styles from './NotesItem.module.scss';
 import Title from '../Title/Title';
 
-function NotesItem({ id, title, date, description, selected, handleSelectNote }: NotesItemProps) {
-  const dispatch = useContext(NotesDispatchContext);
-
-  const noteCache = {
-    id,
-    description,
-    date,
-  };
+function NotesItem({
+  id,
+  title,
+  date,
+  description,
+  selected,
+  handleSelectNote,
+}: NotesItemProps) {
+  function handleClick() {
+    handleSelectNote({ id, text: title, date, selected: true });
+  }
 
   return (
     <div
       role="button"
-      onClick={(noteCache)}
+      onClick={handleClick}
       tabIndex={0}
       className={clsx(styles.wrapper, selected && styles.selected)}
       onKeyDown={(event) => {
         if (event.key === 'Enter' || event.key === ' ') {
-          handleSelectNote(noteCache);
+          handleClick();
         }
       }}
     >

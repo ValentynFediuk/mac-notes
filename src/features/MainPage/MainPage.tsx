@@ -18,7 +18,7 @@ function MainPage(): JSX.Element {
   const [notesState, dispatch] = useReducer(NotesReducer, initialNotesState);
   const { add } = useIndexedDB(DATABESE_NAME);
   const { getAll } = useIndexedDB(DATABESE_NAME);
-  const { clear } = useIndexedDB(DATABESE_NAME);
+  const { deleteRecord } = useIndexedDB(DATABESE_NAME);
   const { update } = useIndexedDB(DATABESE_NAME);
 
   function setPreveousSelectedToFalse() {
@@ -86,7 +86,14 @@ function MainPage(): JSX.Element {
   }
 
   function handleDeleteNote() {
-    clear();
+    const deleteNoteAction: INotesActions = {
+      type: 'DELETE_SELECTED_NOTE',
+    };
+
+    dispatch(deleteNoteAction);
+
+    const selectedNote = notesState.find((note) => note.selected === true);
+    deleteRecord(selectedNote?.id);
   }
 
   function handleEditNote() {}
@@ -94,7 +101,12 @@ function MainPage(): JSX.Element {
   async function handleTypeNote(note: INote, newText: string) {
     try {
       await update({ ...note, text: newText });
-      await fetchNotes();
+      const typeNoteAction: INotesActions = {
+        type: 'TYPE_NOTE',
+        payload: { ...note, text: newText },
+      };
+
+      dispatch(typeNoteAction);
     } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(error.toString());
@@ -105,21 +117,16 @@ function MainPage(): JSX.Element {
   }
 
   async function handleSelectNote(note: INote) {
-    // const selectNoteAction: INotesActions = {
-    //   type: 'SELECT_NOTE',
-    //   payload: {...note note.id },
-    // };
+    const { id } = note;
+    const selectNoteAction: INotesActions = {
+      type: 'SELECT_NOTE',
+      payload: { id },
+    };
 
-    try {
-      await update({ ...note, selected: true });
-      await fetchNotes();
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        throw new Error(error.toString());
-      } else {
-        throw new Error(`An unknown error occurred: ${error}`);
-      }
-    }
+    setPreveousSelectedToFalse();
+
+    dispatch(selectNoteAction);
+    update(note);
   }
 
   return (
