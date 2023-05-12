@@ -1,5 +1,5 @@
 type ITopBar = {
   handleAddNote: () => void;
-  handleEditNote: () => void;
+  handleClickEdit: () => void;
   handleDeleteNote: () => void;
 };

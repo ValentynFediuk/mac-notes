@@ -3,8 +3,12 @@ import { NotesContext } from 'store';
 import { INote } from 'types';
 import styles from './Sidebar.module.scss';
 import { NotesItem } from '../ui';
+import { SidebarProps } from './Sidebar.props';
 
-function Sidebar({handleSelectNote}): JSX.Element {
+function Sidebar({
+  handleSelectNote,
+  handleTypeNoteTitle,
+}: SidebarProps): JSX.Element {
   const notesState = useContext(NotesContext);
 
   return (
@@ -13,11 +17,13 @@ function Sidebar({handleSelectNote}): JSX.Element {
         <NotesItem
           key={note?.id}
           id={note?.id}
-          title={note?.text}
-          description={note?.text}
+          title={note?.title}
+          text={note?.text}
           date={note?.date}
           selected={note?.selected}
+          edit={note?.edit}
           handleSelectNote={handleSelectNote}
+          handleTypeNoteTitle={handleTypeNoteTitle}
         />
       ))}
     </aside>

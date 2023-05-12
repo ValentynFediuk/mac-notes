@@ -1,4 +1,5 @@
 function useFormatDate(date: Date) {
+  if (!date) return null;
   const now = new Date();
   const isToday =
     date.getDate() === now.getDate() &&

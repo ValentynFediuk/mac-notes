@@ -21,6 +21,8 @@ function MainPage(): JSX.Element {
   const { deleteRecord } = useIndexedDB(DATABESE_NAME);
   const { update } = useIndexedDB(DATABESE_NAME);
 
+  const selectedNote = notesState.find((note) => note.selected === true);
+
   function setPreveousSelectedToFalse() {
     try {
       const setPreveousSelectedToFalseAction: INotesActions = {
@@ -92,11 +94,38 @@ function MainPage(): JSX.Element {
 
     dispatch(deleteNoteAction);
 
-    const selectedNote = notesState.find((note) => note.selected === true);
     deleteRecord(selectedNote?.id);
   }
 
-  function handleEditNote() {}
+  function handleClickEdit() {
+    if (!selectedNote) return;
+
+    const editNoteAction: INotesActions = {
+      type: 'EDIT_NOTE',
+      payload: { selectedNote },
+    };
+
+    dispatch(editNoteAction);
+    update(selectedNote);
+  }
+
+  async function handleTypeNoteTitle(note: INote, newTitle: string) {
+    try {
+      await update({ ...note, title: newTitle });
+      const typeNoteTitleAction: INotesActions = {
+        type: 'TYPE_NOTE_TITLE',
+        payload: { ...note, title: newTitle },
+      };
+
+      dispatch(typeNoteTitleAction);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error(error.toString());
+      } else {
+        throw new Error(`An unknown error occurred: ${error}`);
+      }
+    }
+  }
 
   async function handleTypeNote(note: INote, newText: string) {
     try {
@@ -136,9 +165,12 @@ function MainPage(): JSX.Element {
           <TopBar
             handleAddNote={handleAddNote}
             handleDeleteNote={handleDeleteNote}
-            handleEditNote={handleEditNote}
+            handleClickEdit={handleClickEdit}
           />
-          <Sidebar handleSelectNote={handleSelectNote} />
+          <Sidebar
+            handleSelectNote={handleSelectNote}
+            handleTypeNoteTitle={handleTypeNoteTitle}
+          />
           <Workspace handleTypeNote={handleTypeNote} />
         </NotesDispatchContext.Provider>
       </NotesContext.Provider>

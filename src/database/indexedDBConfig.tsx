@@ -9,6 +9,7 @@ const indexedDBConfig = {
       storeConfig: { keyPath: 'id', autoIncrement: true },
       storeSchema: [
         { name: 'id', keypath: 'id', options: { unique: true } },
+        { name: 'title', keypath: 'title', options: { unique: false } },
         { name: 'text', keypath: 'text', options: { unique: false } },
         { name: 'date', keypath: 'date', options: { unique: true } },
         { name: 'selected', keypath: 'selected', options: { unique: true } },

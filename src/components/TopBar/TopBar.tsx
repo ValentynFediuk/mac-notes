@@ -2,7 +2,7 @@ import sprite from 'assets/icons/sprite.svg';
 import { Button, Search } from '../ui';
 import styles from './TopBar.module.scss';
 
-function TopBar({ handleAddNote, handleDeleteNote, handleEditNote }: ITopBar) {
+function TopBar({ handleAddNote, handleDeleteNote, handleClickEdit }: ITopBar) {
   return (
     <header className={styles.wrapper}>
       <nav>
@@ -26,7 +26,7 @@ function TopBar({ handleAddNote, handleDeleteNote, handleEditNote }: ITopBar) {
             </svg>
           </Button>
           <Button
-            handleClick={handleEditNote}
+            handleClick={handleClickEdit}
             appearance="primary"
             typeBtn="button"
           >
