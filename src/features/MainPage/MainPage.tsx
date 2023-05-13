@@ -166,6 +166,7 @@ function MainPage(): JSX.Element {
             handleAddNote={handleAddNote}
             handleDeleteNote={handleDeleteNote}
             handleClickEdit={handleClickEdit}
+            fetchNotes={fetchNotes}
           />
           <Sidebar
             handleSelectNote={handleSelectNote}

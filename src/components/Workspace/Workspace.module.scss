@@ -1,13 +1,20 @@
 .wrapper {
     grid-area: content;
     padding: 1rem;
-    position: relative;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 2rem;
+
+    & .title, & .textarea, & .markdown {
+            width: calc(100vw - 28rem);
+    }
     & .textarea {
-        @include overlay {
             background-color: $primary;
             color: $secondary;
-            padding: 1rem;
             resize: none;
-        }
+            height: 100%;
     }
+     
 }

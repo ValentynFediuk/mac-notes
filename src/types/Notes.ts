@@ -19,7 +19,8 @@ type INotesActions =
   | { type: 'SELECT_NOTE'; payload: { id: string } }
   | { type: 'EDIT_NOTE'; payload: { selectedNote: INote } }
   | { type: 'SET_PREVIOUS_SELECTED_NOTE_TO_FALSE' }
-  | { type: 'LOAD_NOTES_FROM_DB'; payload: { notes: INote[] } };
+  | { type: 'LOAD_NOTES_FROM_DB'; payload: { notes: INote[] } }
+  | { type: 'LOAD_FILTERED_NOTES'; payload: { notes: INote[] } };
 type INotesState = INote[];
 
 export type { INote, INotesState, INotesActions, DispatchNotes };

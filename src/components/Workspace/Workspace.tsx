@@ -1,7 +1,8 @@
 import ReactMarkdown from 'react-markdown';
 import { NotesContext } from 'store';
-import { ChangeEvent, useContext, useState } from 'react';
+import { ChangeEvent, useContext } from 'react';
 import styles from './Workspace.module.scss';
+import { Title } from '../ui';
 
 function Workspace({ handleTypeNote }): JSX.Element {
   const notesState = useContext(NotesContext);
@@ -15,12 +16,26 @@ function Workspace({ handleTypeNote }): JSX.Element {
 
   return (
     <main className={styles.wrapper}>
-      <textarea
-        className={styles.textarea}
-        value={selectedNote?.text}
-        onChange={(event) => handleChange(event)}
-      />
-      <ReactMarkdown>{selectedNote?.text}</ReactMarkdown>
+      {selectedNote && (
+        <>
+          <Title className={styles.title} typeTitle="h3" size="s">
+            {selectedNote?.title || 'New note'}
+          </Title>
+          {selectedNote?.edit ? (
+            <textarea
+              placeholder="Type note text"
+              wrap="soft"
+              className={styles.textarea}
+              value={selectedNote?.text}
+              onChange={(event) => handleChange(event)}
+            />
+          ) : (
+            <ReactMarkdown className={styles.markdown}>
+              {selectedNote?.text}
+            </ReactMarkdown>
+          )}
+        </>
+      )}
     </main>
   );
 }

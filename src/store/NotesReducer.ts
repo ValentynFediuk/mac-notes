@@ -37,6 +37,8 @@ const NotesReducer = (
       return state.map((note) => ({ ...note, selected: false }));
     case 'LOAD_NOTES_FROM_DB':
       return [...action.payload.notes];
+    case 'LOAD_FILTERED_NOTES':
+      return [...action.payload.notes];
     default:
       return state;
   }

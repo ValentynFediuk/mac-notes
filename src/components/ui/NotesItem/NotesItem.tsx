@@ -54,17 +54,20 @@ function NotesItem({
         }
       }}
     >
-      <Title className={styles.title} typeTitle="h3" size="s">
-        {title || 'Emty note'}
-      </Title>
-      {edit && (
-        <input
-          onChange={(event) => handleChange(event)}
-          value={title}
-          type="text"
-        />
-      )}
-
+      <div className={styles.title_wrapper}>
+        <Title className={styles.title} typeTitle="h3" size="s">
+          {title || 'New note'}
+        </Title>
+        {edit && selected && (
+          <input
+            placeholder="Type note title"
+            className={styles.input}
+            onChange={(event) => handleChange(event)}
+            value={title}
+            type="text"
+          />
+        )}
+      </div>
       <div className={styles.info}>
         {date && <p className={styles.date}>{formattedDate}</p>}
         <p className={styles.description}>{text}</p>
