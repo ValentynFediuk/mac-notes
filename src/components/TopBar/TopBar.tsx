@@ -22,7 +22,7 @@ function TopBar({
 
   const [query, setQuery] = useState('');
   const debouncedQuery = useDebounce(query, 500);
-
+      
   const handleInputChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
