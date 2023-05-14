@@ -19,6 +19,10 @@
     "paths": {
       "components/*": ["components/index"],
       "features/*": ["features/index"],
+      "store/*": ["store/index"],
+      "database/*": ["database/index"],
+      "types/*": ["types/index"],
+      "hooks/*": ["hooks/index"],
     },
   },
   "include": [

@@ -1,12 +1,29 @@
 .wrapper {
     grid-area: content;
     padding: 1rem;
-    position: relative;
-    & .textarea {
-        @include overlay {
-            background-color: $primary;
-            color: $secondary;
-            padding: 1rem;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 2rem;
+    @include media-sm {
+        border-top: 0.1rem solid $secondary;
+    }
+
+    & .title, & .textarea, & .markdown {
+        width: calc(100vw - 28rem);
+        @include media-sm {
+                width: calc(100vw - 2rem);
         }
     }
+    & .textarea {
+        background-color: $primary;
+        color: $secondary;
+        resize: none;
+        height: 100%;
+        @include media-sm {
+                height: calc(35vh);
+        }
+    }
+     
 }

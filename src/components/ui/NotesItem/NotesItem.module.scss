@@ -1,0 +1,34 @@
+.wrapper {
+    border-bottom: 0.1rem solid;
+    border-color: $gray;
+    padding: 0.5rem 1rem;
+    & .title_wrapper {
+        position: relative;
+        & .input {
+            @include overlay {
+                top: 0.3rem;
+                bottom: 0.3rem;
+                background-color: $gray;
+                color: $secondary
+            }
+        }
+    }
+    & .info {
+        display: grid;
+        grid-template-columns: 7rem 1fr;
+        gap: 2rem;
+    }
+    &:not(.selected) {
+        cursor: pointer;
+    }
+    &.selected {
+        background-color: $gray;
+        border-color: $primary;
+    }
+
+    & .description, .title {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+    }
+}

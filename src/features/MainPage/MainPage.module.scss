@@ -1,9 +1,0 @@
-.wrapper {
-    display: grid;
-    grid-template-columns: 25rem 1fr;
-    grid-template-rows: auto 1fr;
-    grid-template-areas:
-    "navbar navbar"
-    "sidebar content";
-    height: 100vh;
-}

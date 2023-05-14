@@ -1,104 +1,44 @@
 import ReactMarkdown from 'react-markdown';
-import { useState, ChangeEvent, useEffect } from 'react';
+import { NotesContext } from 'store';
+import { ChangeEvent, useContext } from 'react';
 import styles from './Workspace.module.scss';
+import { Title } from '../ui';
+import { WorkspaceProps } from './Workspace.props';
 
-interface MyObject {
-  id?: number;
-  value: string;
-}
+function Workspace({ handleTypeNote }: WorkspaceProps): JSX.Element {
+  const notesState = useContext(NotesContext);
 
-function Workspace(): JSX.Element {
-  const [db, setDb] = useState<IDBDatabase | null>(null);
-  const [dbValue, setDbValue] = useState<string>('');
-  const [text, setText] = useState<string>('');
+  const selectedNote = notesState?.find(({ selected }) => selected);
 
-  useEffect(() => {
-    // create an instance of the IndexedDB database
-    const request = window.indexedDB.open('myDatabase', 1);
-
-    request.onupgradeneeded = (event) => {
-      const db = event.target.result;
-      const objectStore = db.createObjectStore('myObjectStore', {
-        keyPath: 'id',
-        autoIncrement: true,
-      });
-    };
-
-    request.onsuccess = (event) => {
-      const db = event.target.result as IDBDatabase;
-      setDb(db);
-
-      // retrieve any previously stored data from IndexedDB
-      const transaction = db.transaction(['myObjectStore'], 'readonly');
-      const objectStore = transaction.objectStore('myObjectStore');
-      const request = objectStore.getAll();
-
-      request.onsuccess = (event) => {
-        const values: MyObject[] = event.target.result;
-        if (values.length > 0) {
-          setDbValue(values[values.length - 1].value); // set the value of the most recently added object
-        }
-      };
-
-      transaction.onerror = (event) => {
-        console.error('Transaction error', event.target.error);
-      };
-    };
-
-    request.onerror = (event) => {
-      console.error('Database error', event.target.error);
-    };
-  }, []);
-
-  const handleGetButtonClick = () => {
-    if (db === null) return;
-
-    const transaction = db.transaction(['myObjectStore'], 'readonly');
-    const objectStore = transaction.objectStore('myObjectStore');
-    const request = objectStore.getAll();
-
-    request.onsuccess = (event) => {
-      const values: MyObject[] = event.target.result;
-      if (values.length > 0) {
-        console.log(values[values.length - 1].value);
-        setText(values[values.length - 1].value); // set the
-      } else {
-        setText('No values found');
-      }
-    };
-  };
-
-  function handleChange(event: ChangeEvent<HTMLTextAreaElement>): void {
-    setText(event.target.value);
-
-    const transaction = db.transaction(['myObjectStore'], 'readwrite');
-    const objectStore = transaction.objectStore('myObjectStore');
-    const newItem: MyObject = { value: text };
-    const request = objectStore.add(newItem);
-
-    request.onsuccess = (event) => {
-      console.log('Value added to IndexedDB');
-    };
-
-    transaction.oncomplete = (event) => {
-      console.log('Transaction completed');
-    };
-
-    transaction.onerror = (event) => {
-      console.error('Transaction error', event.target.error);
-    };
+  function handleChange(event: ChangeEvent<HTMLTextAreaElement>) {
+    const newText = event.target.value;
+    if (selectedNote) {
+      handleTypeNote(selectedNote, newText);
+    }
   }
 
   return (
     <main className={styles.wrapper}>
-      <textarea
-        className={styles.textarea}
-        value={text}
-        onChange={(event: ChangeEvent<HTMLTextAreaElement>) =>
-          handleChange(event)
-        }
-      />
-      <ReactMarkdown>{text}</ReactMarkdown>
+      {selectedNote && (
+        <>
+          <Title className={styles.title} typeTitle="h3" size="s">
+            {selectedNote?.title || 'New note'}
+          </Title>
+          {selectedNote?.edit ? (
+            <textarea
+              placeholder="Type note text"
+              wrap="soft"
+              className={styles.textarea}
+              value={selectedNote?.text}
+              onChange={(event) => handleChange(event)}
+            />
+          ) : (
+            <ReactMarkdown className={styles.markdown}>
+              {selectedNote?.text}
+            </ReactMarkdown>
+          )}
+        </>
+      )}
     </main>
   );
 }

@@ -8,6 +8,7 @@ function Button({ children, typeBtn, appearance, handleClick }: ButtonProps) {
       type={typeBtn === 'submit' ? 'submit' : 'button'}
       className={clsx(styles.btn, {
         [styles.primary]: appearance === 'primary',
+        [styles.disabled]: appearance === 'disabled',
       })}
       onClick={handleClick}
     >

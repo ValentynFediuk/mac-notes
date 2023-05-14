@@ -1,7 +1,7 @@
-import { MainPage } from 'features';
+import { Notes } from 'features';
 
-function App() {
-  return <MainPage />;
+function App(): JSX.Element {
+  return <Notes />;
 }
 
 export default App;

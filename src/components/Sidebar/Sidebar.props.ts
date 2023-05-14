@@ -1,5 +1,6 @@
-import { ReactNode } from 'react';
+import { INote } from 'types';
 
 export interface SidebarProps {
-  children: ReactNode;
+  handleTypeNoteTitle: (note: INote, newTitle: string) => Promise<void>;
+  handleSelectNote: (note: INote) => Promise<void>;
 }

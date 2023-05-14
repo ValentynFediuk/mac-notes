@@ -1,0 +1,23 @@
+.modal {
+    @include overlay {
+
+    }
+    display: flex;
+    & .modal_content {
+        margin: auto;
+        padding: 2rem;
+        border: 0.1rem solid red;
+        max-width: 50rem;
+        background-color: $primary;
+        text-align: center;
+    }
+
+    & h3 {
+        margin-bottom: 3rem;
+    }
+
+    & .buttons {
+        display: flex;
+        justify-content: space-between;
+    }
+}
