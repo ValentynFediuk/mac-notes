@@ -5,4 +5,5 @@ export interface TopBarProps {
   handleClickEdit: () => void;
   handleDeleteNote: () => void;
   notesFromDB: INote[];
+  fetchNotes: () => Promise<void>;
 }
