@@ -182,6 +182,7 @@ function Notes(): JSX.Element {
             handleDeleteNote={handleDeleteNote}
             handleClickEdit={handleClickEdit}
             notesFromDB={notesFromDB}
+            fetchNotes={fetchNotes}
           />
           <Sidebar
             handleSelectNote={handleSelectNote}
