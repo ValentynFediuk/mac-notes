@@ -1,6 +1,6 @@
 import { useFormatDate } from 'hooks';
 import clsx from 'clsx';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { NotesItemProps } from './NotesItem.props';
 import styles from './NotesItem.module.scss';
 import Title from '../Title/Title';

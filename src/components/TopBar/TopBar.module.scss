@@ -5,6 +5,12 @@
     & nav {
         display: flex;
         justify-content: space-between;
+        @include media-sm {
+            margin: auto;
+            width: fit-content;
+            display: flex;
+            flex-direction: column;
+        }
     }
 }
 .buttons {
@@ -12,5 +18,9 @@
     gap: 1rem;
     & button:nth-of-type(2) svg {
         height: 1.7rem;
+    }
+    @include media-sm {
+        justify-content: space-between;
+        margin-bottom: 2rem;
     }
 }

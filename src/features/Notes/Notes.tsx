@@ -10,38 +10,17 @@ import {
 } from 'store';
 import { useUniqueId } from 'hooks';
 import { INote, INotesActions } from 'types';
-import styles from './MainPage.module.scss';
+import { RemoveModal } from '../../components/ui';
+import styles from './Notes.module.scss';
 
 initDB(indexedDBConfig);
 
-function MainPage(): JSX.Element {
+function Notes(): JSX.Element {
+  const { add, getAll, deleteRecord, update } = useIndexedDB(DATABESE_NAME);
   const [notesState, dispatch] = useReducer(NotesReducer, initialNotesState);
-  const { add } = useIndexedDB(DATABESE_NAME);
-  const { getAll } = useIndexedDB(DATABESE_NAME);
-  const { deleteRecord } = useIndexedDB(DATABESE_NAME);
-  const { update } = useIndexedDB(DATABESE_NAME);
   const [notesFromDB, setNotesFromDB] = useState(notesState);
 
   const selectedNote = notesState.find((note) => note.selected === true);
-
-  function setPreveousSelectedToFalse() {
-    try {
-      const setPreveousSelectedToFalseAction: INotesActions = {
-        type: 'SET_PREVIOUS_SELECTED_NOTE_TO_FALSE',
-      };
-
-      dispatch(setPreveousSelectedToFalseAction);
-      notesState.forEach(async (note) => {
-        await update({ ...note, selected: false });
-      });
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        throw new Error(error.toString());
-      } else {
-        throw new Error(`An unknown error occurred: ${error}`);
-      }
-    }
-  }
 
   async function fetchNotes() {
     try {
@@ -68,6 +47,25 @@ function MainPage(): JSX.Element {
     fetchNotes();
   }, []);
 
+  function setPreveousSelectedToFalse() {
+    try {
+      const setPreveousSelectedToFalseAction: INotesActions = {
+        type: 'SET_PREVIOUS_SELECTED_NOTE_TO_FALSE',
+      };
+
+      dispatch(setPreveousSelectedToFalseAction);
+      notesState.forEach(async (note) => {
+        await update({ ...note, selected: false, edit: false });
+      });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error(error.toString());
+      } else {
+        throw new Error(`An unknown error occurred: ${error}`);
+      }
+    }
+  }
+
   const newNoteId = useUniqueId();
 
   function handleAddNote() {
@@ -92,15 +90,27 @@ function MainPage(): JSX.Element {
     add(newNote);
   }
 
+  const [removeModalState, setRemoveModalState] = useState({
+    show: false,
+    confirm: false,
+  });
+
   function handleDeleteNote() {
-    const deleteNoteAction: INotesActions = {
-      type: 'DELETE_SELECTED_NOTE',
-    };
-
-    dispatch(deleteNoteAction);
-
-    deleteRecord(selectedNote?.id);
+    setRemoveModalState({ ...removeModalState, show: true });
   }
+
+  useEffect(() => {
+    if (removeModalState.confirm) {
+      const deleteNoteAction: INotesActions = {
+        type: 'DELETE_SELECTED_NOTE',
+      };
+
+      dispatch(deleteNoteAction);
+
+      deleteRecord(selectedNote?.id);
+      setRemoveModalState({ show: false, confirm: false });
+    }
+  }, [removeModalState.confirm]);
 
   function handleClickEdit() {
     if (!selectedNote) return;
@@ -178,10 +188,14 @@ function MainPage(): JSX.Element {
             handleTypeNoteTitle={handleTypeNoteTitle}
           />
           <Workspace handleTypeNote={handleTypeNote} />
+          <RemoveModal
+            setRemoveModalState={setRemoveModalState}
+            removeModalState={removeModalState}
+          />
         </NotesDispatchContext.Provider>
       </NotesContext.Provider>
     </div>
   );
 }
 
-export default MainPage;
+export default Notes;

@@ -23,6 +23,7 @@
             opacity: 0;
         }
     }
-
-
+    @include media-sm {
+        height: 3rem;
+    }
 }

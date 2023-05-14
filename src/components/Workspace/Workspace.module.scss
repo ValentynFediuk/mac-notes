@@ -6,15 +6,24 @@
     display: grid;
     grid-template-rows: auto 1fr;
     gap: 2rem;
+    @include media-sm {
+        border-top: 0.1rem solid $secondary;
+    }
 
     & .title, & .textarea, & .markdown {
-            width: calc(100vw - 28rem);
+        width: calc(100vw - 28rem);
+        @include media-sm {
+                width: calc(100vw - 2rem);
+        }
     }
     & .textarea {
-            background-color: $primary;
-            color: $secondary;
-            resize: none;
-            height: 100%;
+        background-color: $primary;
+        color: $secondary;
+        resize: none;
+        height: 100%;
+        @include media-sm {
+                height: calc(35vh);
+        }
     }
      
 }
