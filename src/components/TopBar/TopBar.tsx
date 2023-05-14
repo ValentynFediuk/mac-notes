@@ -12,6 +12,7 @@ function TopBar({
   handleDeleteNote,
   handleClickEdit,
   notesFromDB,
+  fetchNotes,
 }: TopBarProps) {
   const notesState = useContext(NotesContext);
 
@@ -22,8 +23,11 @@ function TopBar({
   const [query, setQuery] = useState('');
   const debouncedQuery = useDebounce(query, 500);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setQuery(event.target.value);
+    await fetchNotes();
   };
 
   useEffect(() => {
