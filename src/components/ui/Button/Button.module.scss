@@ -1,0 +1,18 @@
+.btn {
+    width: 5rem;
+    height: 3rem;
+    display: grid;
+    place-content: center;
+    border-radius: $border-radious;
+    & svg {
+        width: 2rem;
+        height: 2rem;
+    }
+    &.primary {
+        background-color: $primary;
+    }
+    &.disabled {    
+        pointer-events: none;
+        background-color: $gray;
+    }
+}
