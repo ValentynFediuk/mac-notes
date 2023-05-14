@@ -1,7 +1,7 @@
 import { Workspace, TopBar, Sidebar } from 'components';
 import { initDB, useIndexedDB } from 'react-indexed-db';
 import { DATABESE_NAME, indexedDBConfig } from 'database';
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import {
   NotesContext,
   NotesDispatchContext,
@@ -20,6 +20,7 @@ function MainPage(): JSX.Element {
   const { getAll } = useIndexedDB(DATABESE_NAME);
   const { deleteRecord } = useIndexedDB(DATABESE_NAME);
   const { update } = useIndexedDB(DATABESE_NAME);
+  const [notesFromDB, setNotesFromDB] = useState(notesState);
 
   const selectedNote = notesState.find((note) => note.selected === true);
 
@@ -52,6 +53,8 @@ function MainPage(): JSX.Element {
       };
 
       dispatch(loadNotesFromDB);
+
+      setNotesFromDB(notes);
     } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(error.toString());
@@ -70,9 +73,11 @@ function MainPage(): JSX.Element {
   function handleAddNote() {
     const newNote = {
       id: newNoteId,
+      title: '',
       text: '',
       date: new Date(),
       selected: true,
+      edit: false,
     };
 
     setPreveousSelectedToFalse();
@@ -166,7 +171,7 @@ function MainPage(): JSX.Element {
             handleAddNote={handleAddNote}
             handleDeleteNote={handleDeleteNote}
             handleClickEdit={handleClickEdit}
-            fetchNotes={fetchNotes}
+            notesFromDB={notesFromDB}
           />
           <Sidebar
             handleSelectNote={handleSelectNote}

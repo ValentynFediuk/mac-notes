@@ -17,10 +17,12 @@
         transform: translate(-100%, -50%);
         color: $secondary;
     }
-    &:focus {
+    &:focus, &:not(:focus):not([value=""]) {
         background-image: none;
         &::placeholder {
             opacity: 0;
         }
     }
+
+
 }

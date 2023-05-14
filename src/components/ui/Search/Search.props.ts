@@ -3,5 +3,5 @@ export interface SearchProps {
   inputType: 'text';
   appearance: 'primary';
   value: string;
-  handleChange: () => void;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }

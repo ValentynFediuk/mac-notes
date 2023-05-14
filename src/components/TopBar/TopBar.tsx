@@ -5,13 +5,14 @@ import { useDebounce } from 'hooks';
 import { INote, INotesActions } from 'types';
 import { Button, Search } from '../ui';
 import styles from './TopBar.module.scss';
+import { TopBarProps } from './TopBar.props';
 
 function TopBar({
   handleAddNote,
   handleDeleteNote,
   handleClickEdit,
-  fetchNotes,
-}: ITopBar) {
+  notesFromDB,
+}: TopBarProps) {
   const notesState = useContext(NotesContext);
 
   const dispatch = useContext(NotesDispatchContext);
@@ -27,21 +28,25 @@ function TopBar({
 
   useEffect(() => {
     const filterData = () => {
-      const filtered: INote[] = notesState?.filter((note: INote) =>
+      const filtered: INote[] = notesFromDB?.filter((note: INote) =>
         note?.title?.toLowerCase().includes(debouncedQuery.toLowerCase())
       );
 
       if (debouncedQuery === '') {
-        fetchNotes()
-      } else {
         const loadFilteredNotes: INotesActions = {
           type: 'LOAD_FILTERED_NOTES',
-          payload: { notes: filtered },
+          payload: { notes: notesFromDB },
         };
-  
+
         dispatch(loadFilteredNotes);
       }
-      
+
+      const loadFilteredNotes: INotesActions = {
+        type: 'LOAD_FILTERED_NOTES',
+        payload: { notes: filtered },
+      };
+
+      dispatch(loadFilteredNotes);
     };
     filterData();
   }, [debouncedQuery]);

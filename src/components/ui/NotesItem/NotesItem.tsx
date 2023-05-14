@@ -1,6 +1,6 @@
 import { useFormatDate } from 'hooks';
 import clsx from 'clsx';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { NotesItemProps } from './NotesItem.props';
 import styles from './NotesItem.module.scss';
 import Title from '../Title/Title';
@@ -28,6 +28,8 @@ function NotesItem({
     });
   }
 
+  const [inputValue, setInputValue] = useState(title || '');
+
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const note = {
       id,
@@ -40,6 +42,7 @@ function NotesItem({
 
     const newValue = event.target.value;
     handleTypeNoteTitle(note, newValue);
+    setInputValue(event.target.value);
   }
 
   return (
@@ -63,7 +66,7 @@ function NotesItem({
             placeholder="Type note title"
             className={styles.input}
             onChange={(event) => handleChange(event)}
-            value={title}
+            value={inputValue}
             type="text"
           />
         )}
